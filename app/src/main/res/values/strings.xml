@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Safe Auto Clicker</string>
+    <string name="accessibility_desc">Allows fixed screen taps for accessibility/testing.</string>
+</resources>
