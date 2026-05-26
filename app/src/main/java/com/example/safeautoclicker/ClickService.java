@@ -15,8 +15,9 @@ public class ClickService extends AccessibilityService {
     private String currentPackage = "";
 
     private int[][] points = {
-            {540, 1510}, // Continue
-            {540, 2220}  // Free
+            {540, 1620}, // 3 times button
+            {540, 1800}, // 0.1 times / Continue area
+            {540, 2220}  // Free button
     };
 
     private int index = 0;
