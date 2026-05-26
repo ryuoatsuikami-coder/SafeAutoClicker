@@ -11,9 +11,12 @@ public class ClickService extends AccessibilityService {
     private Handler handler = new Handler();
     private boolean running = false;
 
+    private final String targetPackage = "com.magic.plant.evolumerge";
+    private String currentPackage = "";
+
     private int[][] points = {
-            {540, 1510},
-            {540, 2220}
+            {540, 1510}, // Continue
+            {540, 2220}  // Free
     };
 
     private int index = 0;
@@ -22,6 +25,11 @@ public class ClickService extends AccessibilityService {
         @Override
         public void run() {
             if (!running) return;
+
+            if (!currentPackage.equals(targetPackage)) {
+                handler.postDelayed(this, 1000);
+                return;
+            }
 
             int x = points[index][0];
             int y = points[index][1];
@@ -34,7 +42,7 @@ public class ClickService extends AccessibilityService {
 
     @Override
     protected void onServiceConnected() {
-        Toast.makeText(this, "Auto Clicker Service Enabled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Auto Clicker enabled for Magic Merge only", Toast.LENGTH_SHORT).show();
         running = true;
         handler.postDelayed(clickLoop, 1500);
     }
@@ -53,7 +61,11 @@ public class ClickService extends AccessibilityService {
     }
 
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {}
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+        if (event.getPackageName() != null) {
+            currentPackage = event.getPackageName().toString();
+        }
+    }
 
     @Override
     public void onInterrupt() {
